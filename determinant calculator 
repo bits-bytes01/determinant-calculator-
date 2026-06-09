@@ -1,0 +1,75 @@
+#include<stdio.h>
+#include<math.h>
+int mat(int m,int b[m][m],int l)
+{
+    int x,y;
+    int d;
+    int r;
+    x=0;
+    int c[m-1][m-1];
+    for(int i=0;i<m;i++)
+    {
+        y=0;
+        for(int j=0;j<m;j++)
+        {
+            if(i==0 || j==l)
+            {
+                continue;
+            }
+            else
+            {
+                c[x][y]=b[i][j];
+                y++;
+            }
+        }
+        if(i>0)
+        {
+            x++;
+        }
+    }
+   if(m-1==2)
+   {
+     d=c[0][0]*c[1][1]-c[0][1]*c[1][0];
+    return d;
+   }
+   r=0;
+   l=0;
+   while(l<m-1)
+   {
+       r=r+pow(-1,l)*c[0][l]*mat(m-1,c,l);
+       l++;
+   }
+   return r;
+}
+int main()
+{
+    int i,j,n;
+    printf("enter the order:");
+    scanf("%d",&n);
+    int a[n][n];
+
+    printf("enter element:");
+    for(i=0;i<n;i++)
+    {
+        for(j=0;j<n;j++)
+        {
+            scanf("%d",&a[i][j]);
+        }
+    }
+    int d;
+    if(n==2)
+   {
+     d=a[0][0]*a[1][1]-a[0][1]*a[1][0];
+     printf("%d",d);
+    return 0;
+   }
+    int p=0;
+    int r=0;
+    while(p<n)
+    {
+        r=r+pow(-1,p)*a[0][p]*mat(n,a,p);
+        p++;
+    }
+    printf("%d",r);
+    return 0;
+}
